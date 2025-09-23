@@ -1,0 +1,1 @@
+public record PLSRecord(String field, double value) {}
