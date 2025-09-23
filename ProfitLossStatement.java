@@ -35,6 +35,9 @@ class ProfitLossStatement {
     public double getTax() {
         return tax;
     }
+    public double getDivs() {
+        return dividends;
+    }
     public double getGProf() {
         return grossProfit;
     }
