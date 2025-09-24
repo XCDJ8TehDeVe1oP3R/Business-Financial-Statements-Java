@@ -16,7 +16,7 @@ public class Main {
         initFile(file);
         writeFile(businessName, file, plsRec);
     }
-
+    
     public static String[] fields ={
         "Revenue", 
         "Cost Of Sales",
