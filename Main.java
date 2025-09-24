@@ -3,13 +3,16 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        String trimmed, spaceRemoved, file;
+        String trimmed, spaceRemoved, file, folder;
+
+        folder = "Business Records";
+        initFolder(folder);
         
         System.out.println("Enter Business Name");
         businessName = s.nextLine();
         trimmed = businessName.trim();
         spaceRemoved = trimmed.replaceAll("\\s", "");
-        file = "BusinessFile/"+spaceRemoved.toLowerCase() + "_PLS.txt";
+        file = folder + File.separator + spaceRemoved.toLowerCase() + "_PLS.txt";
         plsRec = initPLS();
         initFile(file);
         writeFile(businessName, file, plsRec);
@@ -64,6 +67,17 @@ public class Main {
         };
     }
 
+    public static void initFolder(String folderName) {
+        File folder = new File(folderName);
+        if (!folder.exists()) {
+            folder.mkdirs();                 // create folder (and parents) if missing
+            System.out.println("Created folder: " + folderName);
+        } else {
+            System.out.println("Folder already exists: " + folderName);
+        }
+    }
+
+
     public static void initFile(String fileName) {
         try {
            File file = new File(fileName);
@@ -74,7 +88,6 @@ public class Main {
             } 
         } catch (IOException e) {
             System.err.println("An error has occurred: " + e);
-            
         }
     }
 
@@ -91,5 +104,4 @@ public class Main {
             System.err.println("An error has occurred: " + e);
         }
     }
-
 }
