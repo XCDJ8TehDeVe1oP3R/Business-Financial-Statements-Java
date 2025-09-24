@@ -3,14 +3,13 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
-        String businessName, trimmed, spaceRemoved, file;
-        try(Scanner s = new Scanner(System.in)){
-            System.out.println("Enter Business Name");
-            businessName = s.next();
-            trimmed = businessName.trim();
-            spaceRemoved = trimmed.replaceAll("\\s", "");
-            file = spaceRemoved.toLowerCase() + "_PLS.txt";    
-        } 
+        String trimmed, spaceRemoved, file;
+        
+        System.out.println("Enter Business Name");
+        businessName = s.next();
+        trimmed = businessName.trim();
+        spaceRemoved = trimmed.replaceAll("\\s", "");
+        file = spaceRemoved.toLowerCase() + "_PLS.txt";    
 
         initPLS(plsRec);
         initFile(file);
@@ -30,24 +29,26 @@ public class Main {
         "Dividends",
         "Retained Profit"
     };
+
+    public static Scanner s = new Scanner(System.in);
+    public static String businessName;
     public static ProfitLossStatement pls;
     public static PLSRecord[] plsRec;
 
     public static void initPLS(PLSRecord[] rec) {
-        try(Scanner sc = new Scanner(System.in)){
             System.out.println("Output the following:");
             System.out.println(fields[0].toLowerCase());
-            double r = sc.nextDouble();
+            double r = s.nextDouble();
             System.out.println(fields[1].toLowerCase());
-            double cos = sc.nextDouble();
+            double cos = s.nextDouble();
             System.out.println(fields[3].toLowerCase());
-            double eo = sc.nextDouble();
+            double eo = s.nextDouble();
             System.out.println(fields[5].toLowerCase());
-            double in = sc.nextDouble();
+            double in = s.nextDouble();
             System.out.println(fields[7].toLowerCase());
-            double tax = sc.nextDouble();
+            double tax = s.nextDouble();
             System.out.println("and " + fields[9].toLowerCase());
-            double div = sc.nextDouble();
+            double div = s.nextDouble();
             pls = new ProfitLossStatement(r, cos, eo, in, tax, div);
         }   
 
