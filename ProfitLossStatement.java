@@ -4,16 +4,16 @@ class ProfitLossStatement {
     profitBeforeTax, tax, annualProfit, dividends, retainedProfit;
 
     public ProfitLossStatement(double revenue, double costOfSales, 
-    double expenses, double overheads, double interest, double tax, double dividends) {
+    double expensesAndOverheads, double interest, double tax, double dividends) {
         this.revenue = revenue;
         this.costOfSales = costOfSales;
-        this.expensesAndOverheads
+        this.expensesAndOverheads = expensesAndOverheads;
         this.interest = interest;
         this.tax = tax;
         this.dividends = dividends;
 
         this.grossProfit = revenue - costOfSales;
-        this.operationProfit = this.grossProfit - (expenses + overheads);
+        this.operationProfit = this.grossProfit - expensesAndOverheads;
         this.profitBeforeTax = this.operationProfit - interest;
         this.annualProfit = this.profitBeforeTax - tax;
         this.retainedProfit = this.annualProfit - dividends;

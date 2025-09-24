@@ -7,7 +7,7 @@ public class Main {
         try(Scanner s = new Scanner(System.in)){
             System.out.println("Enter Business Name");
             businessName = s.next();
-            trimmed = business.trim();
+            trimmed = businessName.trim();
             spaceRemoved = trimmed.replaceAll("\\s", "");
             file = spaceRemoved.toLowerCase() + "_PLS.txt";    
         } 
@@ -30,7 +30,7 @@ public class Main {
         "Dividends",
         "Retained Profit"
     };
-
+    public static ProfitLossStatement pls;
     public static PLSRecord[] plsRec;
 
     public static void initPLS(PLSRecord[] rec) {
@@ -48,7 +48,7 @@ public class Main {
             double tax = sc.nextDouble();
             System.out.println("and " + fields[9].toLowerCase());
             double div = sc.nextDouble();
-            ProfitLossStatement pls = new ProfitLossStatement(r, cos, eo, in, tax, div);
+            pls = new ProfitLossStatement(r, cos, eo, in, tax, div);
         }   
 
         rec = new PLSRecord[] {
@@ -66,24 +66,33 @@ public class Main {
         };
     }
 
-    public static void initFile(String fileName) throws IOException {
-        File file = new File(fileName);
-        if(file.createNewFile()) {
-            System.out.println("File with filename " + fileName + " has been created");
-        } else {
-            System.out.println("File with filename "  + fileName + " already exists");
+    public static void initFile(String fileName) {
+        try {
+           File file = new File(fileName);
+            if(file.createNewFile()) {
+                System.out.println("File with filename " + fileName + " has been created");
+            } else {
+                System.out.println("File with filename "  + fileName + " already exists");
+            } 
+        } catch (IOException e) {
+            System.err.println("An error has occured");
+            e.printStackTrace();
         }
     }
 
-    public static void writeFile(String businessName, String fileName, PLSRecord[] rec) throws IOException {
-        BufferedWriter br = new BufferedWriter(new FileWriter(fileName));
-        br.write("PLS RECORD FOR " + businessName.toUpperCase);
-        br.newLine();
-        for(int x = 0; x < rec.length; x++) {
-            br.write(rec[x].field() + ":  " + rec[x].value());
+    public static void writeFile(String businessName, String fileName, PLSRecord[] rec){
+        try (BufferedWriter br = new BufferedWriter(new FileWriter(fileName))){
+            br.write("PLS RECORD FOR " + businessName.toUpperCase());
             br.newLine();
+            for(int x = 0; x < rec.length; x++) {
+                br.write(rec[x].field() + ":  " + rec[x].value());
+                br.newLine();
+            }
+            br.close();
+        } catch(IOException e) {
+            System.err.println();
+            e.printStackTrace();
         }
-        br.close();
     }
 
 }
