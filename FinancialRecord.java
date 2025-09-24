@@ -1,0 +1,1 @@
+public record FinancialRecord(String field, double value) {}
