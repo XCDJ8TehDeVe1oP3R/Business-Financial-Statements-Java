@@ -4,30 +4,24 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         try (Scanner s = new Scanner(System.in)) {
-            // 1. Read business name and build paths
             String businessName = readBusinessName(s);
             String folderName = businessName.toUpperCase().replaceAll("\\s", "");
             String baseName = businessName.replaceAll("\\s", "").toLowerCase();
             String fileName1 = folderName + File.separator + baseName + "_PLS.txt";
             String fileName2 = folderName + File.separator + baseName + "_FPS.txt";
 
-            // 2. Create folder
             createFolder(folderName);
 
-            // 3. Read financial input and build statement objects
             ProfitLossStatement pls = readProfitLoss(s);
             FinancialPositionStatement fps = readFinancialPosition(s, pls);
 
-            // 4. Prepare records
             FinancialRecord[] rec1 = pls.plsRec();
             FinancialRecord[] rec2 = fps.fpsRec();
 
-            // 5. Create files (if missing) and write
             createFiles(fileName1, fileName2);
             writeFiles(fileName1, fileName2, businessName, rec1, rec2);
         } catch (Exception e) {
             System.err.println("Unexpected error: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -72,13 +66,12 @@ public class Main {
         );
     }
 
-    // Robust numeric input: consumes line remainder and rejects invalid input
     private static double promptDouble(Scanner s, String prompt) {
         while (true) {
             System.out.print(prompt);
             if (s.hasNextDouble()) {
                 double val = s.nextDouble();
-                s.nextLine(); // consume newline
+                s.nextLine();
                 return val;
             } else {
                 String bad = s.nextLine();
@@ -117,15 +110,12 @@ public class Main {
         }
     }
 
-    private static void writeFiles(String file1, String file2, String businessName,
-                                   FinancialRecord[] rec1, FinancialRecord[] rec2) {
-        try (BufferedWriter br1 = new BufferedWriter(new FileWriter(file1));
-             BufferedWriter br2 = new BufferedWriter(new FileWriter(file2))) {
+    private static void writeFiles(String file1, String file2, String businessName, FinancialRecord[] rec1, FinancialRecord[] rec2) {
+        try (BufferedWriter br1 = new BufferedWriter(new FileWriter(file1)); BufferedWriter br2 = new BufferedWriter(new FileWriter(file2))) {
 
             br1.write("PLS RECORD OF " + businessName.toUpperCase());
             br1.newLine();
             for (FinancialRecord r : rec1) {
-                // If you use Double.NaN as sentinel for header rows, handle it:
                 if (Double.isNaN(r.value())) {
                     br1.write(r.field());
                 } else {
@@ -146,7 +136,6 @@ public class Main {
             }
         } catch (IOException e) {
             System.err.println("Write error: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 }
