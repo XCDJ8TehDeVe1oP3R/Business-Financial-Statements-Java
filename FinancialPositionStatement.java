@@ -112,4 +112,8 @@ class FinancialPositionStatement {
         return totalAssets == totalLiabilitiesAndEquity;
     }
 
+    public ProfitLossStatement getPls() {
+        return pls;
+    }
+
 }
