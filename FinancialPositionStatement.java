@@ -9,7 +9,7 @@ class FinancialPositionStatement {
 
     public FinancialPositionStatement(ProfitLossStatement pls, double vehicles, double land, double equipment,
     double intangibles,double inventories, double tradeReceivables, double cash, double tradePayables, double stLoans,
-    double bankLoans, double shareCap, double RER){
+    double bankLoans, double shareCap){
         this.pls = pls;
         this.vehicles =vehicles;
         this.land = land;
