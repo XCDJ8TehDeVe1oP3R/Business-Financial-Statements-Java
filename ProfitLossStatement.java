@@ -2,6 +2,19 @@ class ProfitLossStatement {
     private final double revenue, costOfSales, grossProfit, 
     expensesAndOverheads, operationProfit, interest, 
     profitBeforeTax, tax, annualProfit, dividends, retainedProfit;
+    private final String[] fieldsPLS = {
+        "Revenue",
+        "Cost Of Sales",
+        "Gross Profit",
+        "Overheads and Expenses",
+        "Operations Profit",
+        "Interest",
+        "Profit Before Tax",
+        "Tax",
+        "Profit After Tax(Annual Profit)",
+        "Dividends",
+        "Retained Profit"
+    };
 
     public ProfitLossStatement(double revenue, double costOfSales, 
     double expensesAndOverheads, double interest, double tax, double dividends) {
@@ -18,20 +31,6 @@ class ProfitLossStatement {
         this.annualProfit = this.profitBeforeTax - tax;
         this.retainedProfit = this.annualProfit - dividends;
     }
-
-    public final String[] fieldsPLS ={
-        "Revenue",
-        "Cost Of Sales",
-        "Gross Profit",
-        "Overheads and Expenses",
-        "Operations Profit",
-        "Interest",
-        "Profit Before Tax",
-        "Tax",
-        "Profit After Tax(Annual Profit)",
-        "Dividends",
-        "Retained Profit"
-    };
 
     public FinancialRecord[] plsRec() {
         return new FinancialRecord[] {

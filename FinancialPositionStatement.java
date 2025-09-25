@@ -6,6 +6,31 @@ class FinancialPositionStatement {
     totalLiabilities, totalLiabilitiesAndEquity, cLiabilities, tradePayables, stLoans,
     bankLoans, totalEquity, shareCap, RER;
     private final ProfitLossStatement pls;
+    private final String[] fieldsFPS = {
+        "ASSETS",
+        "Non-current(fixed) assets:",
+        "Vehicles",
+        "Land",
+        "Equipment",
+        "intangible assets",
+        "Current(variable) assets:",
+        "Inventories",
+        "Trade receivables",
+        "Cash",
+        "TOTAL ASSETS",
+        "EQUITY & LIABILITY",
+        "Current liabilities:",
+        "Trade payables",
+        "Short-term loans",
+        "Non-Current liabilities:",
+        "Bank(long-term) loans",
+        "TOTAL LIABILITIES",
+        "Shareholders' equity:",
+        "Share capital",
+        "Retained earnings reserve",
+        "Equity",
+        "TOTAL EQUITY & LIABILITIES"
+    };
 
     public FinancialPositionStatement(ProfitLossStatement pls, double vehicles, double land, double equipment,
     double intangibles,double inventories, double tradeReceivables, double cash, double tradePayables, double stLoans,
@@ -31,33 +56,6 @@ class FinancialPositionStatement {
         this.totalEquity = this.RER + shareCap;
         this.totalLiabilitiesAndEquity = totalEquity + totalLiabilities;
     }
-
-
-    public final String[] fieldsFPS = {
-        "ASSETS",
-        "Non-current(fixed) assets:",
-        "Vehicles",
-        "Land",
-        "Equipment",
-        "intangible assets",
-        "Current(variable) assets:",
-        "Inventories",
-        "Trade receivables",
-        "Cash",
-        "TOTAL ASSETS",
-        "EQUITY & LIABILITY",
-        "Current liabilities:",
-        "Trade payables",
-        "Short-term loans",
-        "Non-Current liabilities:",
-        "Bank(long-term) loans",
-        "TOTAL LIABILITIES",
-        "Shareholders' equity:",
-        "Share capital",
-        "Retained earnings reserve",
-        "Equity",
-        "TOTAL EQUITY & LIABILITIES"
-    };
 
     public FinancialRecord[] fpsRec() {
         return new FinancialRecord[] {
