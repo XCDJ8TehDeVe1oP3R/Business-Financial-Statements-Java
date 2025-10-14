@@ -1,17 +1,19 @@
 import java.io.*;
-import java.util.Scanner;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         try (Scanner s = new Scanner(System.in)) {
             String businessName = readBusinessName(s);
-            String folderName = businessName.toUpperCase().replaceAll("\\s", "");
+            String folderName = (businessName.toUpperCase().replaceAll("\\s", "")) + "_FinancialStatements";
             String baseName = businessName.replaceAll("\\s", "").toLowerCase();
             String fileName1 = folderName + File.separator + baseName + "_PLS.txt";
             String fileName2 = folderName + File.separator + baseName + "_FPS.txt";
-
+            LocalDate date = promptDate(s, "Enter the publication date");
             createFolder(folderName);
-
             ProfitLossStatement pls = readProfitLoss(s);
             FinancialPositionStatement fps = readFinancialPosition(s, pls);
 
@@ -19,7 +21,7 @@ public class Main {
             FinancialRecord[] rec2 = fps.fpsRec();
 
             createFiles(fileName1, fileName2);
-            writeFiles(fileName1, fileName2, businessName, rec1, rec2);
+            writeFiles(fileName1, fileName2, businessName, rec1, rec2, date);
         } catch (Exception e) {
             System.err.println("Unexpected error: " + e.getMessage());
         }
@@ -33,6 +35,24 @@ public class Main {
             name = s.nextLine().trim();
         }
         return name;
+    }
+
+    public static LocalDate promptDate(Scanner scanner, String message) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate date = null;
+
+        while (date == null) {
+            System.out.print(message + " (dd/MM/yyyy): ");
+            String input = scanner.nextLine();
+
+            try {
+                date = LocalDate.parse(input, formatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("❌ Invalid format! Please use dd/MM/yyyy (e.g. 05/07/2025)");
+            }
+        }
+
+        return date;
     }
 
     private static ProfitLossStatement readProfitLoss(Scanner s) {
@@ -110,10 +130,12 @@ public class Main {
         }
     }
 
-    private static void writeFiles(String file1, String file2, String businessName, FinancialRecord[] rec1, FinancialRecord[] rec2) {
+    private static void writeFiles(String file1, String file2, String businessName, FinancialRecord[] rec1, FinancialRecord[] rec2, LocalDate date) {
         try (BufferedWriter br1 = new BufferedWriter(new FileWriter(file1)); BufferedWriter br2 = new BufferedWriter(new FileWriter(file2))) {
 
             br1.write("PLS RECORD OF " + businessName.toUpperCase());
+            br1.newLine();
+            br1.write("Published: " + date.toString());
             br1.newLine();
             for (FinancialRecord r : rec1) {
                 if (Double.isNaN(r.value())) {
@@ -125,6 +147,8 @@ public class Main {
             }
 
             br2.write("FPS RECORD OF " + businessName.toUpperCase());
+            br2.newLine();
+            br2.write("Published: " + date.toString());
             br2.newLine();
             for (FinancialRecord r : rec2) {
                 if (Double.isNaN(r.value())) {
