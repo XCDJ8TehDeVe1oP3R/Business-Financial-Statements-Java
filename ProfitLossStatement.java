@@ -48,39 +48,26 @@ class ProfitLossStatement {
         };
     }
 
-    public double getRev() {
-        return revenue;
-    }
+    public double getRev() { return revenue;}
 
-    public double getCOS() {
-        return costOfSales;
-    }
-    public double getExsAndOs() {
-        return expensesAndOverheads;
-    }
-    public double getIntrst() {
-        return interest;
-    }
-    public double getTax() {
-        return tax;
-    }
-    public double getDivs() {
-        return dividends;
-    }
-    public double getGProf() {
-        return grossProfit;
-    }
-    public double getOProf() {
-        return operationProfit;
-    }
-    public double getProfBefTax() {
-        return profitBeforeTax;
-    }
-    public double getAProf() {
-        return annualProfit;
-    }
+    public double getCOS() {return costOfSales;}
 
-    public double getRProf() {
-        return retainedProfit;
-    }
+    public double getExsAndOs() {return expensesAndOverheads;}
+
+    public double getIntrst() {return interest;}
+
+    public double getTax() {return tax;}
+
+    public double getDivs() {return dividends;}
+
+    public double getGProf() {return grossProfit;}
+
+    public double getOProf() {return operationProfit;}
+
+    public double getProfBefTax() {return profitBeforeTax;}
+
+    public double getAProf() {return annualProfit;}
+        
+
+    public double getRProf() {return retainedProfit;}
 }

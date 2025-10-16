@@ -105,13 +105,7 @@ class FinancialPositionStatement {
     public double getRER() {return RER;}
     public double getTotalEquity() {return totalEquity;}
     public double getTEquityAndLiabs() {return totalLiabilitiesAndEquity;}
-
-    public boolean balances() {
-        return totalAssets == totalLiabilitiesAndEquity;
-    }
-
-    public ProfitLossStatement getPls() {
-        return pls;
-    }
+    public boolean balances() {return totalAssets == totalLiabilitiesAndEquity;}
+    public ProfitLossStatement getPls() {return pls;}
 
 }

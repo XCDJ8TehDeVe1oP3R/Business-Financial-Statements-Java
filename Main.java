@@ -47,7 +47,7 @@ public class Main {
             try {
                 date = LocalDate.parse(input, formatter);
             } catch (DateTimeParseException e) {
-                System.out.println("❌ Invalid format! Please use dd/MM/yyyy (e.g. 05/07/2025)");
+                System.out.println("Invalid format! Please use dd/MM/yyyy (e.g. 05/07/2025)");
             }
         }
 
@@ -102,16 +102,12 @@ public class Main {
     private static void createFolder(String folderName) {
         File folder = new File(folderName);
         if (folder.exists()) {
-            if (!folder.isDirectory()) {
-                throw new IllegalStateException("A non-directory exists with the same name: " + folderName);
-            }
+            if (!folder.isDirectory()) throw new IllegalStateException("A non-directory exists with the same name: " + folderName);
+
             System.out.println("Folder already exists: " + folderName);
         } else {
-            if (folder.mkdirs()) {
-                System.out.println("Created folder: " + folderName);
-            } else {
-                System.err.println("Failed to create folder: " + folderName);
-            }
+            if (folder.mkdirs()) System.out.println("Created folder: " + folderName); 
+            else System.err.println("Failed to create folder: " + folderName);
         }
     }
 
@@ -137,11 +133,9 @@ public class Main {
             br1.write("Published: " + date.toString());
             br1.newLine();
             for (FinancialRecord r : rec1) {
-                if (Double.isNaN(r.value())) {
-                    br1.write(r.field());
-                } else {
-                    br1.write(r.field() + ": " + r.value());
-                }
+                if (Double.isNaN(r.value())) br1.write(r.field());
+                else br1.write(r.field() + ": " + r.value());
+
                 br1.newLine();
             }
 
@@ -150,11 +144,9 @@ public class Main {
             br2.write("Published: " + date.toString());
             br2.newLine();
             for (FinancialRecord r : rec2) {
-                if (Double.isNaN(r.value())) {
-                    br2.write(r.field());
-                } else {
-                    br2.write(r.field() + ": " + r.value());
-                }
+                if (Double.isNaN(r.value())) br2.write(r.field());
+                else br2.write(r.field() + ": " + r.value());
+
                 br2.newLine();
             }
         } catch (IOException e) {
